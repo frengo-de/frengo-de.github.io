@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    #counter {
+        left: 0;
+        top: 0;
+        width: 100%;
+        text-align: center;
+        font-size: xx-large;
+        font-weight: bolder;
+        font-style: italic;
+    }
+
+    .row {
+        display: flex;
+    }
+
+    .left {
+        flex: 30%;
+        margin: auto;
+        text-align: right;
+        padding: 10px;
+    }
+
+    .right {
+        flex: 70%;
+    }
+
+    .editable {
+        border: 1px solid blue;
+        border-radius: 5px;
+        padding: 5px;
+    }
+
+    #subject {
+        width: max-content;
+    }
+
+    #description {
+        height: 500px;
+        width: 1000px;
+    }
+
+    button {
+        font-size: larger;
+        font-weight: bolder;
+        margin-top: 10px;
+    }
+
+    select {
+        margin-bottom: 10px;
+    }
+</style>
+<title>Level I Training</title>
+</head>
+<body>
+    <div id="counter">
+        ⏱️ <label id="minutes">00</label>:<label id="seconds">00</label>.<label id="dseconds">0</label><br>
+        <script>
+            alert("Time for some 1st Level Training!\nAssign the ticket to Martin in the fastest time possible!");
+        </script>
+
+        <script>
+            var minutesLabel = document.getElementById("minutes");
+            var secondsLabel = document.getElementById("seconds");
+            var dsecondsLabel = document.getElementById("dseconds");
+            var totalDseconds = 0;
+            setInterval(setTime, 100);
+
+            function setTime() {
+                ++totalDseconds;
+                dsecondsLabel.innerHTML = totalDseconds % 10;
+                secondsLabel.innerHTML = pad(parseInt(totalDseconds / 10) % 60);
+                minutesLabel.innerHTML = pad(parseInt(totalDseconds / 600));
+            }
+
+
+            function pad(val) {
+                var valString = val + "";
+                if (valString.length < 2) {
+                    return "0" + valString;
+                } else {
+                    return valString;
+                }
+            }
+
+            function getScore() {
+                var assignment = document.getElementById("assignment");
+                var assignmentText = assignment.options[assignment.selectedIndex].text;
+                if (assignmentText == "Martin") {
+                    var score = 1000 - totalDseconds;
+                    alert("Congrats! You scored " + score + " points.")
+                    window.location.reload(true);
+                } else {
+                    alert("You assigned the ticket to the wrong person!")
+                }
+            }
+        </script>
+    </div>
+    <div class="row">
+        <div class="left">
+            <label for="assignment">Assignment</label>
+            <select name="assignment" id="assignment">
+                <option style="display: none"></option>
+                <option value="sneha">Sneha</option>
+                <option value="benni">Benni</option>
+                <option value="klaudiusz">Klaudiusz</option>
+                <option value="martin">Martin</option>
+                <option value="philipp">Philipp</option>
+                <option value="vittorio">Vittorio</option>
+                <option value="francesco">Francesco</option>
+            </select><br>
+            <label for="priority">Priority</label>
+            <select name="priority" id="priority">
+                <option style="display: none"></option>
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">HIGH!!!</option>
+            </select><br>
+            <label for="type">Type</label>
+            <select name="type" id="type">
+                <option style="display: none"></option>
+                <option value="question">Question</option>
+                <option value="incident">Incident</option>
+                <option value="problem">Problem</option>
+                <option value="task">Task</option>
+            </select>
+        </div>
+        <div class="right">
+            <h1>Ticket #12345 🐸</h1>
+            <div id="subject" class="editable" contenteditable>URGENT!!! TEAMS TELEFONIE</div><br>
+            <div id="description" class="editable" contenteditable>WE NEED TO SWITCH <b>RIGHT NOW!!!</b><br>
+                It's been almost a year. I haven't been able to call anyone all this time.<br>
+                Please send help.<br><br>
+                Please Martin...<br><br>
+                Martin...? Are you still there?
+            </div>
+            <div id="submit"><button type="button" onclick="getScore()">Submit</button></div>
+        </div>
+    </div>
+</body>
+</html>
